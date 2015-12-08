@@ -5,12 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// load the env vars
+require('dotenv').load();
+
 var fishes = require('./app/routes/fishes');
 
 var app = express();
-
-// load the env vars
-require('dotenv').load();
 
 // requiring the database
 var mongoose = require('./app/config/database');
