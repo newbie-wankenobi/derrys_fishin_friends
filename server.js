@@ -1,14 +1,17 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express      = require('express'),
+    path         = require('path'),
+    favicon      = require('serve-favicon'),
+    logger       = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    jwt          = require('jsonwebtoken'),
+    bodyParser   = require('body-parser');
 
 // load the env vars
 require('dotenv').load();
 
 var fishes = require('./app/routes/fishes');
+
+var superSecret = "afishiwishafriendtofish";
 
 var app = express();
 
