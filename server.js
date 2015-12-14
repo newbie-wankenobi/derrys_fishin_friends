@@ -3,15 +3,12 @@ var express      = require('express'),
     favicon      = require('serve-favicon'),
     logger       = require('morgan'),
     cookieParser = require('cookie-parser'),
-    jwt          = require('jsonwebtoken'),
     bodyParser   = require('body-parser');
 
 // load the env vars
 require('dotenv').load();
 
-var fishes = require('./app/routes/fishes');
-
-var superSecret = "afishiwishafriendtofish";
+var apiRoutes = require('./app/routes/api_routes');
 
 var app = express();
 
@@ -32,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(allowCrossDomain);
 
-app.use('/api/fishes', fishes);
+app.use('/api', apiRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
@@ -49,7 +46,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
       error: err
     });
@@ -60,7 +57,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.json({
     message: err.message,
     error: {}
   });

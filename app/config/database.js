@@ -4,8 +4,8 @@ var db = mongoose.connection;
 
 var env = require('./environment.js');
 
-var dbUri = process.env.MONGOLAB_URI  ||
-            'mongodb://localhost/' + env.SAFE_TITLE;
+var dbUri = 'mongodb://localhost/' + env.SAFE_TITLE;
+            // process.env.MONGOLAB_URI  ||
 
 // connect to db
 mongoose.connect(dbUri);

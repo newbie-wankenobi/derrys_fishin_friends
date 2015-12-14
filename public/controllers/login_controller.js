@@ -15,16 +15,22 @@
 
     vm.userHold = {
       name: "",
-      phoneNumber: ""
+      phoneNumber: "",
+      password: ""
     };
 
     function logIn(name) {
       $log.debug("Logging in:", vm.userHold.name);
 
       // Log in the user by updating the service's .name:
-      vm.user.name        = vm.userHold.name;
-      vm.user.phoneNumber = vm.userHold.phoneNumber
-      vm.userHold.name    = "";
+      vm.user.name            = vm.userHold.name;
+      vm.user.phoneNumber     = vm.userHold.phoneNumber;
+      vm.user.password        = vm.userHold.password;
+
+      // Reset userHold
+      vm.userHold.name        = "";
+      vm.userHold.phoneNumber = "";
+      vm.userHold.password    = "";
 
       $state.go("triumphs");
     }

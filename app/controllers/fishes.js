@@ -85,12 +85,14 @@ var fishUpdate = function(req, res) {
 // DELETE FISH
 //||||||||||||||||||||||||||--
 var fishDelete = function(req, res) {
+
   var id = req.params.id;
 
   Fish.remove({"_id" : id}, function(err) {
     if (err) {
       res.send(err);
     }
+
     res.json({ message: 'Forget that Fish!' });
   });
 }

@@ -11,6 +11,7 @@
     var user = {
       name:        "",
       phoneNumber: "",
+      password:    "",
       isLoggedIn:  isLoggedIn
     };
 

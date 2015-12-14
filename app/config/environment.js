@@ -5,5 +5,7 @@ var localEnvVars = {
   SAFE_TITLE: 'derry_fishin_log'
 };
 
+var superSecret = "afishiwishafriendtofish";
+
 // Merge all environmental variables into one object.
 module.exports = _.extend(process.env, localEnvVars);
