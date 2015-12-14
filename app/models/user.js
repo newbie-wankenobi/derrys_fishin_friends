@@ -7,15 +7,15 @@ var mongoose     = require('mongoose'),
 // CREATE USER SCHEMA
 //||||||||||||||||||||||||||--
 var UserSchema   = new Schema({
-  name:     {type: String, required: true},
+  name:        { type: String, required: true },
   phoneNumber: {
-            type: String,
-            required: true,
-            index: { unique: true },
-            minlength: 7,
-            maxlength: 10
+                 type: String,
+                 required: true,
+                 index: { unique: true },
+                 minlength: 7,
+                 maxlength: 10
   },
-  password: {type: String, required: true, select: false}
+  password:    { type: String, required: true, select: false }
 });
 
 

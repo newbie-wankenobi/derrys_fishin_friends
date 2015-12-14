@@ -124,7 +124,7 @@ var userCreate = function(req, res) {
 // GET USER
 //||||||||||||||||||||||||||--
 var userShow = function(req, res) {
-  User.findById(req.params.user_id, function(err, user) {
+  User.findById(req.params.id, function(err, user) {
         if (err) res.send(err);
 
         // return that user
@@ -148,7 +148,7 @@ var usersAll = function(req, res) {
 // UPDATE USER
 //||||||||||||||||||||||||||--
 var userUpdate = function(req, res) {
-  User.findById(req.params.user_id, function(err, user) {
+  User.findById(req.params.id, function(err, user) {
 
         if (err) res.send(err);
 
@@ -172,7 +172,7 @@ var userUpdate = function(req, res) {
 //||||||||||||||||||||||||||--
 var userDelete = function(req, res) {
   User.remove({
-        _id: req.params.user_id
+        _id: req.params.id
       }, function(err, user) {
         if (err) res.send(err);
 
