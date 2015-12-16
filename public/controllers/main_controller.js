@@ -5,21 +5,14 @@
       .module("fishinApp")
       .controller("MainController", MainController);
 
-  MainController.$inject = ["$state", "userDataService", "$log"];
+  MainController.$inject = ["$state", "userDataService", "$log", "authService"];
 
-  function MainController($state, userDataService, $log) {
+  function MainController($state, userDataService, $log, authService) {
     var vm = this;
 
     vm.user = userDataService;
-    vm.logOut = logOut;
-
-    function logOut() {
-      $log.debug("Logging out:", vm.user.name);
-
-      vm.user.name        = "";
-      vm.user.phoneNumber = "";
-      $state.go("homePage");
-    }
+    vm.logout = authService.logout;
+    vm.isLoggedIn = authService.isLoggedIn;
 
     vm.$state = $state;
 

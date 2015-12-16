@@ -5,25 +5,27 @@
     .module("fishinApp")
     .controller("LoginController", LoginController);
 
-  LoginController.$inject = ["$state", "userDataService", "$log"];
+  LoginController.$inject = ["$state", "userDataService", "$log", "authService"];
 
-  function LoginController($state, userDataService, $log) {
+  function LoginController($state, userDataService, $log, authService) {
     var vm = this;
 
-    vm.user   = userDataService;
-    vm.logIn  = logIn;
+    vm.login      = login;
+    vm.isLoggedIn = authService.isLoggedIn;
+    vm.currentUser;
 
     // Form data for login
     vm.loginData;
 
-    function logIn() {
+    function login() {
       authService.login(vm.loginData.phoneNumber, vm.loginData.password)
         .then(function(res) {
-          console.log(res.data);
+          $log.log(res.data);
           userDataService.user = res.data.user;
           $state.go('triumphs');
         });
     };
+
   }
 
 })();

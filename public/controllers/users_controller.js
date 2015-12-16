@@ -2,19 +2,14 @@
   angular.module('fishinApp')
          .controller('UsersController', UsersController);
 
-  UsersController.$inject = ['$state', 'authService', 'userDataService'];
+  UsersController.$inject = ['$state', 'authService', 'userDataService', '$log'];
 
-  function UsersController($state, authService, userDataService) {
+  function UsersController($state, authService, userDataService, $log) {
     var vm = this;
 
-    vm.currentUser = {};
-    vm.message = '';
+    vm.currentUser = authService.currentUser;
 
-
-    if (authService.currentUser() !== undefined) {
-      vm.currentUser = authService.currentUser();
-    }
-
+    $log(vm.currentUser());
     // attaching functions to controller
     vm.createUser = createUser;
 

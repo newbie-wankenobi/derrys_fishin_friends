@@ -54,9 +54,9 @@
         password:    password
       })
         .success(function(data) {
-          AuthToken.setToken(data.token);
-          currentUser      = data.user;
-          userService.user = data.user;
+          authToken.setToken(data.token);
+          currentUser          = data.user;
+          userDataService.user = data.user;
 
           return data;
         });
@@ -65,13 +65,13 @@
     // log a user out by clearing the token
     authFactory.logout = function() {
       // clear the token
-      AuthToken.setToken();
+      authToken.setToken();
     };
 
     // check if a user is logged in
     // checks if there is a local token
     authFactory.isLoggedIn = function() {
-      if (AuthToken.getToken())
+      if (authToken.getToken())
         return true;
       else
         return false;
@@ -82,15 +82,11 @@
     };
 
     // get the logged in user
-    authFactory.getUser = function() {
-      if (AuthToken.getToken())
-        return $http.get('/api/me', { cache: true });
+    authFactory.getUser = function(id) {
+      if (authToken.getToken())
+        return $http.get('/api/users/' + id, { cache: true });
       else
         return $q.reject({ message: 'User has no token.' });
-    };
-
-    authFactory.createSampleUser = function() {
-      $http.post('/api/sample');
     };
 
     // return auth factory object
@@ -108,7 +104,7 @@
     interceptorFactory.request = function(config) {
 
       // grab the token
-      var token = AuthToken.getToken();
+      var token = authToken.getToken();
 
       // if the token exists, add it to the header as x-access-token
       if (token) config.headers['x-access-token'] = token;
@@ -121,8 +117,8 @@
 
       // if our server returns a 403 forbidden response
       if (response.status == 403) {
-        AuthToken.setToken();
-        $location.path('/login');
+        authToken.setToken();
+        $location.path('/');
       }
 
       // return the errors from the server as a promise
