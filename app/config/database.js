@@ -6,8 +6,8 @@ var env = require('./environment.js');
 
 var SAFE_TITLE = env.localEnvVars.SAFE_TITLE;
 
-var dbUri = 'mongodb://localhost/' + SAFE_TITLE;
-            // process.env.MONGOLAB_URI  ||
+var dbUri = process.env.MONGOLAB_URI || 'mongodb://localhost/' + SAFE_TITLE;
+
 
 // connect to db
 mongoose.connect(dbUri);
