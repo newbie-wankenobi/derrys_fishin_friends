@@ -49,7 +49,7 @@
     }
 
     function postFish() {
-      $http.post('api/fishes', vm.newFish)
+      $http.post('/api/fishes', vm.newFish)
         .then(getFishes)
         .then(function(response) {
           vm.newFish = {
@@ -60,7 +60,7 @@
     }
 
     function updateFish(id) {
-      $http.put('api/fishes/' + id, vm.editFish).then(function(response) {
+      $http.put('/api/fishes/' + id, vm.editFish).then(function(response) {
         vm.editFish = {
           name: "",
           category: ""
