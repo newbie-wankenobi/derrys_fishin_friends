@@ -5,7 +5,7 @@
     .module("fishinApp")
     .factory("userDataService", userDataService);
 
-  userDataService.$inject = [$http];
+  userDataService.$inject = ['$http'];
 
   function userDataService($http) {
     var userFactory = {};

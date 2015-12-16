@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 var fishSchema = new mongoose.Schema({
   name:       String,
   category:   String,
-  user:       { type: mongoose.Schema.Types.ObjectId, ref:'User'}
+  user:       { type: mongoose.Schema.Types.ObjectId, ref:'User' }
 });
 
 // Create the model using your schema.

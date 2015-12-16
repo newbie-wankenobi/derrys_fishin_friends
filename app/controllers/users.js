@@ -111,7 +111,7 @@ var userCreate = function(req, res) {
           if (err.code == 11000)
             return res.json({ success: false, message: 'A user with those digits already exists! '});
           else
-            return res.send(err);
+            return res.json(err);
         }
 
         // return a message

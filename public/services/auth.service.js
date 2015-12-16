@@ -1,15 +1,44 @@
 (function() {
 
   angular.module('fishinApp')
-         .factory('authService',     authService),
-         .factory('authToken',       authToken),
+         .factory('authToken',       authToken)
+         .factory('authService',     authService)
          .factory('authInterceptor', authInterceptor);
 
-  authService.$inject     = ["$http", "$q", "authToken", "userDataService"];
   authToken.$inject       = ["$window"];
+  authService.$inject     = ["$http", "$q", "authToken", "userDataService"];
   authInterceptor.$inject = ["$q", "$location", "authToken"];
 
+
+  //||||||||||||||||||||||||||--
+  // AUTH TOKEN FACTORY
+  //||||||||||||||||||||||||||--
+  function authToken($window) {
+    var authTokenFactory = {};
+
+    // get the token out of local storage
+    authTokenFactory.getToken = function() {
+      return $window.localStorage.getItem('token');
+    };
+
+    // function to set token or clear token
+    // if a token is passed, set the token
+    // if there is no token, clear it from local storage
+    authTokenFactory.setToken = function(token) {
+      if (token) {
+        $window.localStorage.setItem('token', token);
+      } else {
+        $window.localStorage.removeItem('token');
+      }
+    };
+
+    return authTokenFactory;
+  }
+
+
+  //||||||||||||||||||||||||||--
   // AUTH SERVICE FACTORY
+  //||||||||||||||||||||||||||--
   function authService($http, $q, authToken, userDataService) {
 
     // create auth factory object
@@ -68,30 +97,10 @@
     return authFactory;
   }
 
-  // AUTH TOKEN FACTORY
-  function authToken($window) {
-    var authTokenFactory = {};
 
-    // get the token out of local storage
-    authTokenFactory.getToken = function() {
-      return $window.localStorage.getItem('token');
-    };
-
-    // function to set token or clear token
-    // if a token is passed, set the token
-    // if there is no token, clear it from local storage
-    authTokenFactory.setToken = function(token) {
-      if (token) {
-        $window.localStorage.setItem('token', token);
-      } else {
-        $window.localStorage.removeItem('token');
-      }
-    };
-
-    return authTokenFactory;
-  }
-
+  //||||||||||||||||||||||||||--
   // AUTH INTERCEPTOR FACTORY
+  //||||||||||||||||||||||||||--
   function authInterceptor($q, $location, authToken) {
     var interceptorFactory = {};
 

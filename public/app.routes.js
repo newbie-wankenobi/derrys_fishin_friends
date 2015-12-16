@@ -19,6 +19,12 @@
         url: "/about",
         templateUrl:  "/templates/about.html"
       })
+      .state("register", {
+        url: "/register",
+        templateUrl: "/templates/register.html",
+        controller: "UsersController",
+        controllerAs: "vm"
+      })
       .state("triumphs", {
         url: "/triumphs",
         templateUrl: "/templates/triumphs.html",

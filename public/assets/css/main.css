@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+.left-jus {
+  float: left;
+}
+
 #heading-text {
   font-family: wooden;
   font-size: 5.3rem;
