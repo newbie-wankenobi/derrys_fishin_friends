@@ -49,7 +49,7 @@
     authFactory.login = function(phoneNumber, password) {
 
       // return the promise object and its data
-      return $http.post('https://murmuring-basin-8090.herokuapp.com/api/login', {
+      return $http.post('/api/login', {
         phoneNumber: phoneNumber,
         password:    password
       })
