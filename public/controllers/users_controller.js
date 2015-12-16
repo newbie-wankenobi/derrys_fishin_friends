@@ -8,8 +8,6 @@
     var vm = this;
 
     vm.currentUser = authService.currentUser;
-
-    $log(vm.currentUser());
     // attaching functions to controller
     vm.createUser = createUser;
 

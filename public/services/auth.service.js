@@ -6,7 +6,7 @@
          .factory('authInterceptor', authInterceptor);
 
   authToken.$inject       = ["$window"];
-  authService.$inject     = ["$http", "$q", "authToken", "userDataService"];
+  authService.$inject     = ["$http", "$q", "authToken", "userDataService", "$state"];
   authInterceptor.$inject = ["$q", "$location", "authToken"];
 
 
@@ -39,7 +39,7 @@
   //||||||||||||||||||||||||||--
   // AUTH SERVICE FACTORY
   //||||||||||||||||||||||||||--
-  function authService($http, $q, authToken, userDataService) {
+  function authService($http, $q, authToken, userDataService, $state) {
 
     // create auth factory object
     var authFactory = {},
@@ -66,6 +66,9 @@
     authFactory.logout = function() {
       // clear the token
       authToken.setToken();
+
+      // return to homepage
+      $state.go('homePage');
     };
 
     // check if a user is logged in
