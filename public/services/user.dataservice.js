@@ -8,9 +8,11 @@
   userDataService.$inject = ['$http'];
 
   function userDataService($http) {
-    var userFactory = {};
+    var userFactory = {
+      current: {}
+    };
 
-    userFactory.user = {};
+    userFactory.current.user = {};
 
     // get a single user
     userFactory.get = function(id) {

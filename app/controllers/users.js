@@ -35,7 +35,9 @@ var userAuth = function (req, res, next) {
           // if user is found and password is right
           // create a token
           var token = jwt.sign({
-            phoneNumber: user.phoneNumber
+            phoneNumber: user.phoneNumber,
+            name:        user.name,
+            _id:         user._id
           }, superSecret, {
             expiresInMinutes: 43200 // expires in 30 days
           });

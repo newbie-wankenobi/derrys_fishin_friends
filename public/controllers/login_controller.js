@@ -12,7 +12,7 @@
 
     vm.login      = login;
     vm.isLoggedIn = authService.isLoggedIn;
-    vm.currentUser = userDataService.user;
+    vm.currentUser = userDataService.current.user;
 
     // Form data for login
     vm.loginData;
@@ -21,7 +21,6 @@
       authService.login(vm.loginData.phoneNumber, vm.loginData.password)
         .then(function(res) {
           $log.log(res.data);
-          userDataService.user = res.data.user;
           $state.go('triumphs');
         });
     };

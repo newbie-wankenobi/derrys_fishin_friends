@@ -7,7 +7,7 @@
   function UsersController($state, authService, userDataService, $log) {
     var vm = this;
 
-    vm.currentUser = authService.currentUser;
+    vm.currentUser = userDataService.current.user;
     // attaching functions to controller
     vm.createUser = createUser;
 

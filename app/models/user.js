@@ -18,6 +18,13 @@ var UserSchema   = new Schema({
   password:    { type: String, required: true, select: false }
 });
 
+// exclude password
+UserSchema.set('toJSON', {
+  transform: function(doc, ret) {
+    delete ret.password;
+    return ret;
+  }
+});
 
 // hash the password before the user is saved
 UserSchema.pre('save', function(next) {

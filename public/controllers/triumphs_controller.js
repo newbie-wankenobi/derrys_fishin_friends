@@ -10,7 +10,7 @@
   function TriumphsController($state, userDataService, $log, $http) {
     var vm = this;
 
-    vm.user = userDataService;
+    vm.user = userDataService.current.user;
 
     vm.fishes = [];
 

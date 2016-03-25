@@ -46,7 +46,7 @@
         <a ui-sref="triumphs">Triumphs</a>
       </li>
       <li ng-show="vm.isLoggedIn()">
-        <a class="btn" ng-click="vm.logout()">Logout</a>
+        <a class="btn" ng-click="vm.logout()">Logout {{ vm.current.user.name }}</a>
       </li>
     </ul>
 

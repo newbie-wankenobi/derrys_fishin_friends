@@ -5,9 +5,67 @@
          .factory('authService',     authService)
          .factory('authInterceptor', authInterceptor);
 
+  authService.$inject     = ["$http", "$q", "authToken", "userDataService", "$state", "$window"];
   authToken.$inject       = ["$window"];
-  authService.$inject     = ["$http", "$q", "authToken", "userDataService", "$state"];
   authInterceptor.$inject = ["$q", "$location", "authToken"];
+
+
+  //||||||||||||||||||||||||||--
+  // AUTH SERVICE FACTORY
+  //||||||||||||||||||||||||||--
+  function authService($http, $q, authToken, userDataService, $state, $window) {
+
+    // create auth factory object
+    var authFactory = {};
+
+    // log a user in
+    authFactory.login = function(phoneNumber, password) {
+
+      // return the promise object and its data
+      return $http.post('/api/login', {
+        phoneNumber: phoneNumber,
+        password:    password
+      })
+        .success(function(data) {
+          authToken.setToken(data.token);
+
+          // set userDataService.user to the logged in user
+          userDataService.current.user = data.user;
+          console.log("check it out", userDataService);
+          return data;
+        });
+    };
+
+    // log a user out by clearing the token
+    authFactory.logout = function() {
+      // clear the token
+      authToken.setToken();
+
+      // return to homepage
+      $state.go('homePage');
+    };
+
+    // check if a user is logged in
+    // checks if there is a local token
+    authFactory.isLoggedIn = function() {
+      if (authToken.getToken())
+        return true;
+      else
+        return false;
+    };
+
+    // get the logged in user
+    authFactory.setUser = function() {
+      var token = authToken.getToken().split('.')[1];
+      var user = JSON.parse($window.atob(token));
+      userDataService.current.user = user;
+      console.log(userDataService);
+      return user;
+    };
+
+    // return auth factory object
+    return authFactory;
+  }
 
 
   //||||||||||||||||||||||||||--
@@ -33,67 +91,6 @@
     };
 
     return authTokenFactory;
-  }
-
-
-  //||||||||||||||||||||||||||--
-  // AUTH SERVICE FACTORY
-  //||||||||||||||||||||||||||--
-  function authService($http, $q, authToken, userDataService, $state) {
-
-    // create auth factory object
-    var authFactory = {},
-        currentUser;
-
-    // log a user in
-    authFactory.login = function(phoneNumber, password) {
-
-      // return the promise object and its data
-      return $http.post('/api/login', {
-        phoneNumber: phoneNumber,
-        password:    password
-      })
-        .success(function(data) {
-          authToken.setToken(data.token);
-          currentUser          = data.user;
-          userDataService.user = data.user;
-
-          return data;
-        });
-    };
-
-    // log a user out by clearing the token
-    authFactory.logout = function() {
-      // clear the token
-      authToken.setToken();
-
-      // return to homepage
-      $state.go('homePage');
-    };
-
-    // check if a user is logged in
-    // checks if there is a local token
-    authFactory.isLoggedIn = function() {
-      if (authToken.getToken())
-        return true;
-      else
-        return false;
-    };
-
-    authFactory.currentUser = function () {
-      return currentUser;
-    };
-
-    // get the logged in user
-    authFactory.getUser = function(id) {
-      if (authToken.getToken())
-        return $http.get('/api/users/' + id, { cache: true });
-      else
-        return $q.reject({ message: 'User has no token.' });
-    };
-
-    // return auth factory object
-    return authFactory;
   }
 
 
