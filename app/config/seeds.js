@@ -68,9 +68,9 @@ Fish.remove({}, function(err) {
           console.log(`Database seeded with ${users.length} users and ${fishes.length} fishes`);
 
           // disconnect db
-          mongoose.disconnect();
+          mongoose.connection.close();
         }
-
+        process.exit();
       });
     });
   });
